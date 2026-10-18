@@ -1,44 +1,56 @@
-# [Project name]
+# Velmax Technologies
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+Corporate website for Velmax Technologies, a manufacturer of servo stabilizers, inverter batteries, and online UPS systems. The site presents product families and stores business enquiries.
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
-- `pnpm run typecheck` — full typecheck across all packages
-- `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
+- `artifacts/velmax-site: web` — managed Vite workflow for the website
+- `artifacts/api-server: API Server` — managed Express API workflow
+- `pnpm --filter @workspace/velmax-site run typecheck` — website TypeScript check
+- `PORT=5173 BASE_PATH=/ pnpm --filter @workspace/velmax-site run build` — website production build
+- `pnpm --filter @workspace/api-server run typecheck` — API TypeScript check
+- `pnpm run typecheck` — typecheck all workspace packages
+- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas
+- `pnpm --filter @workspace/db run push` — apply development database schema changes
+- Required by the API/database: `DATABASE_URL`
 
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
-- API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- Website: React + Vite + TypeScript
+- API: Express 5, with OpenAPI-generated Zod validation and React Query hooks
+- Database: PostgreSQL + Drizzle ORM
+- API builds with esbuild
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/velmax-site/src/App.tsx` — single-page website and interactions
+- `artifacts/velmax-site/src/site-config.ts` — editable product, company, contact, industry, and credibility content
+- `artifacts/velmax-site/src/site.css` — site visual system and responsive rules
+- `lib/api-spec/openapi.yaml` — API contract
+- `lib/db/src/schema/business-enquiries.ts` — enquiry storage
+- `artifacts/api-server/src/routes/enquiries.ts` — enquiry API endpoint
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- The website is a presentation-first artifact; form submissions go through the shared API and are saved in PostgreSQL.
+- Enquiries are not currently sent by email; configure a delivery service if email notifications are needed.
+- Unverified contact details, specifications, industries, certifications, and testimonials remain empty or visibly marked for confirmation.
+- The product images are generated concept visuals and must be replaced with approved Velmax photography before launch.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+Visitors can explore Velmax's three power-equipment product families and submit a business enquiry. The site is responsive, supports reduced motion, and uses scroll reveals.
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- Keep the site focused on manufacturing and enquiries, not SaaS or ecommerce.
+- Do not invent company facts, product specifications, performance claims, industries, certifications, or contact details.
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Run API codegen after changing `lib/api-spec/openapi.yaml`; the shared API client needs `dom.iterable` in its TypeScript libs for generated `Headers.entries()` usage.
+- Use the managed artifact workflow for the website so its required `PORT` and `BASE_PATH` are provided.
 
 ## Pointers
 

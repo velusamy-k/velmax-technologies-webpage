@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: enquiries
+    description: Business enquiry submissions
 paths:
   /healthz:
     get:
@@ -24,6 +26,37 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /enquiries:
+    post:
+      operationId: createBusinessEnquiry
+      tags: [enquiries]
+      summary: Submit a business enquiry
+      description: Stores a prospective customer's enquiry for the Velmax Technologies team.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BusinessEnquiryInput"
+      responses:
+        "201":
+          description: Enquiry received
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BusinessEnquiryReceipt"
+        "400":
+          description: Invalid enquiry details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
+        "500":
+          description: Enquiry could not be saved
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiError"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +66,57 @@ components:
           type: string
       required:
         - status
+    BusinessEnquiryInput:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 120
+        company:
+          type: string
+          maxLength: 160
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        phone:
+          type: string
+          minLength: 5
+          maxLength: 32
+        product:
+          type: string
+          enum:
+            - servo-stabilizers
+            - inverter-batteries
+            - online-ups
+            - general
+        message:
+          type: string
+          minLength: 10
+          maxLength: 5000
+      required:
+        - name
+        - email
+        - phone
+        - product
+        - message
+    BusinessEnquiryReceipt:
+      type: object
+      properties:
+        received:
+          type: boolean
+        message:
+          type: string
+      required:
+        - received
+        - message
+    ApiError:
+      type: object
+      properties:
+        error:
+          type: string
+      required:
+        - error
 

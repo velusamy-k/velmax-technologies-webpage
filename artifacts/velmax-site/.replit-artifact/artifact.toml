@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Velmax Technologies"
+description = "A premium corporate website for Velmax Technologies, presenting its servo stabilizers, inverter batteries, and online UPS systems and helping prospective customers make business enquiries."
+version = "1.0.0"
+id = "artifacts/velmax-site"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24624
+
+[services.development]
+run = "pnpm --filter @workspace/velmax-site run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/velmax-site", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/velmax-site/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24624"
+BASE_PATH = "/"

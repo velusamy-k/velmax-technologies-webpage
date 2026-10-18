@@ -1,0 +1,448 @@
+# PROJECT: Build a Premium, Cinematic Corporate Website for Velmax Technologies
+
+## 1. YOUR ROLE
+
+Act as a senior creative web designer, frontend engineer, animation specialist and conversion-focused UX designer.
+
+Build a complete, production-quality corporate website for **Velmax Technologies**, a manufacturer of:
+
+1. Servo Stabilizers
+2. Inverter Batteries
+3. Online UPS Systems
+
+Reference website: https://www.melius.com/
+
+Study the reference website's visual storytelling, immersive product showcases, typography, navigation, image compositions, scroll-driven animations and transitions.
+
+Use it as design inspiration. Do not copy its branding, proprietary assets, exact layouts or text. Create an original Velmax website that achieves a comparable level of visual quality.
+
+IMPORTANT: Velmax is a manufacturing business, NOT a SaaS company or an online store.
+
+Do not create pricing plans, subscription tiers, shopping carts, checkout flows, SaaS dashboards or account registration pages.
+
+The primary goal is to communicate what we manufacture, demonstrate our products, build trust and generate enquiries from potential customers.
+
+## 2. DESIGN DIRECTION
+
+Create a premium, modern, cinematic industrial-technology website.
+
+The website must feel custom-designed, sophisticated, visually rich and professionally engineered.
+
+Avoid generic corporate templates, ordinary Bootstrap-style layouts, repetitive product cards and excessive rounded rectangles.
+
+Visual characteristics:
+- Deep charcoal and black sections.
+- Warm orange accents inspired by our brand and electrical energy.
+- White and light-grey sections for product information.
+- Oversized editorial typography.
+- High-resolution product photography.
+- Large immersive images and asymmetrical layouts.
+- Subtle dotted grids, fine borders and restrained gradients.
+- Smooth transitions between contrasting sections.
+- Carefully controlled motion and generous spacing.
+
+Use a refined, readable sans-serif typeface for navigation and body text. Use an elegant display typeface for major headlines.
+
+Maintain strong contrast, professional readability and a consistent design system.
+
+The result should feel like a premium industrial brand, not a typical local business template.
+
+## 3. NAVIGATION BAR
+
+Build a polished navigation bar at the top of the website.
+
+Left:
+- Velmax Technologies logo.
+
+Centre:
+- Products
+- Industries
+- About Us
+- Contact
+
+Right:
+- A high-visibility "Enquire Now" button.
+
+Requirements:
+- Sticky navigation while scrolling.
+- Smooth navigation to the appropriate page sections.
+- Products dropdown with Servo Stabilizers, Inverter Batteries and Online UPS.
+- Subtle hover animations.
+- Mobile hamburger menu with a working open/close interaction.
+- Maintain legibility over both dark and light backgrounds.
+
+Do not include Pricing, Enterprise, Sign In or Start for Free.
+
+## 4. OPTIONAL ANNOUNCEMENT STRIP
+
+Directly beneath the navigation, create a slim announcement bar.
+
+Use it for a genuine company announcement, product launch or important service update.
+
+Make its content editable from one configuration file.
+
+If there is no real announcement, hide the bar rather than displaying invented news.
+
+## 5. HERO SECTION — FIRST IMPRESSION
+
+Create an immersive, nearly full-screen hero section.
+
+Headline:
+"Powering Every Possibility."
+
+Supporting copy:
+"Reliable power solutions engineered for performance, protection and continuity."
+
+This copy is an initial draft and can be refined.
+
+Show a visually striking composition featuring our actual Servo Stabilizers, Inverter Batteries and Online UPS products.
+
+Include:
+- A strong primary headline.
+- A short supporting paragraph.
+- "Explore Our Products" CTA.
+- "Contact Our Team" CTA.
+- Cinematic product imagery.
+- Subtle background movement and scroll-responsive transitions.
+- A small scroll indicator.
+
+The first screen should immediately communicate that Velmax manufactures professional power equipment.
+
+Do not use generic stock photography as if it represents our actual products. If actual assets are not provided, use clearly replaceable placeholders until genuine images are supplied.
+
+## 6. SCROLL-DRIVEN STORYTELLING
+
+This is the most important part of the project.
+
+Do not build a static landing page in which the user simply scrolls through ordinary text and cards.
+
+Create a carefully choreographed sequence of visual product stories inspired by the reference website.
+
+As the visitor scrolls:
+- Headlines should enter smoothly.
+- Images should reveal, scale or reposition.
+- Background colours should transition between sections.
+- Text and imagery should move at different speeds where appropriate.
+- Product specifications should appear progressively.
+- Large product images should receive sufficient screen space.
+- Each product section should feel distinct but connected to the overall brand.
+
+Where appropriate, use a pinned or sticky product presentation: the product image remains visible while the accompanying text and benefits change during scrolling.
+
+Use scroll-linked animation rather than triggering every animation from an arbitrary timer.
+
+The visitor should feel that the website is telling a continuous story about the company and its products.
+
+Keep all animations smooth, intentional and performant. Avoid excessive movement, distracting effects and unnecessary loading delays.
+
+## 7. PRODUCT STORY ONE — SERVO STABILIZERS
+
+Create a dedicated immersive section for Servo Stabilizers.
+
+Layout:
+- Large product photograph on one side.
+- Product headline, short description and benefits on the other.
+- Scroll-responsive visual transitions.
+- A clear "Enquire About Servo Stabilizers" CTA.
+
+Information hierarchy:
+1. Product name.
+2. What the product does.
+3. Key benefits.
+4. Suitable applications.
+5. Available models or capacity ranges.
+6. Technical specifications.
+7. Enquiry CTA.
+
+Use a dramatic product presentation with a contrasting background.
+
+Technical specifications, supported voltage ranges, capacities and performance claims must come from verified company information. Do not invent them.
+
+Provide a clear way to navigate to the full product details.
+
+## 8. PRODUCT STORY TWO — INVERTER BATTERIES
+
+Build a visually distinct product section for Inverter Batteries.
+
+Highlight the role of backup power, dependable performance and relevant customer applications.
+
+Include:
+- Large product photography.
+- Clear product descriptions.
+- Available battery variants.
+- Verified specifications.
+- Relevant benefits and use cases.
+- An "Enquire About Inverter Batteries" CTA.
+
+Use scroll-driven transitions and carefully selected imagery.
+
+Do not make unsupported claims about battery life, backup duration, warranty or charging performance.
+
+## 9. PRODUCT STORY THREE — ONLINE UPS
+
+Create an immersive section for Online UPS Systems.
+
+Communicate the importance of dependable power continuity for appropriate business and industrial applications.
+
+Include:
+- Large product imagery.
+- A concise product introduction.
+- Key benefits.
+- Suitable industries and applications.
+- Available models and technical specifications.
+- An "Enquire About Online UPS" CTA.
+
+Use a different visual composition from the previous product sections while maintaining the same design language.
+
+Only display technical specifications and performance claims supplied or verified by Velmax.
+
+## 10. PRODUCT OVERVIEW SECTION
+
+After the immersive product stories, create a compact product discovery section.
+
+Display the three main product families:
+- Servo Stabilizers
+- Inverter Batteries
+- Online UPS
+
+Each item should have:
+- A high-quality image.
+- Product name.
+- Short description.
+- "Explore Product" link.
+
+Use an elegant editorial layout or asymmetrical image composition rather than generic ecommerce cards.
+
+Every link must navigate to the relevant product section or product detail page.
+
+## 11. INDUSTRIES AND APPLICATIONS
+
+Create a section showing where our products are relevant.
+
+Use only industries and applications confirmed by the company.
+
+Possible categories to verify include:
+- Manufacturing facilities.
+- Commercial establishments.
+- Offices and IT infrastructure.
+- Healthcare facilities.
+- Industrial machinery.
+- Other applications supported by our actual products.
+
+Use large images, clear labels and short explanations.
+
+Do not imply that every product is suitable for every application without verification.
+
+## 12. ABOUT VELMAX TECHNOLOGIES
+
+Create a compelling company introduction.
+
+Suggested headline:
+"Engineered for Reliable Power."
+
+Explain who we are, what we manufacture and how we help customers address their power requirements.
+
+Include configurable content for:
+- Company overview.
+- Manufacturing capabilities.
+- Quality and testing practices.
+- Experience and expertise.
+- Industries served.
+- Certifications.
+- Company achievements.
+
+Use real company photographs wherever possible.
+
+Do not invent founding dates, certifications, factory capabilities, customer names, awards or manufacturing statistics.
+
+If a fact has not been provided, make it easy to replace the placeholder before publication.
+
+## 13. TRUST AND CREDIBILITY
+
+Build an optional credibility section using verified company information.
+
+Possible elements:
+- Certifications.
+- Quality standards.
+- Manufacturing capabilities.
+- Years of experience.
+- Customer industries.
+- Genuine client testimonials.
+- Genuine project examples.
+
+Only publish verified claims and authorized testimonials.
+
+Hide empty or unverified elements rather than filling them with fabricated content.
+
+## 14. FINAL CONTACT SECTION
+
+The last major section should be a visually memorable contact experience.
+
+Headline:
+"Let's Power Your Next Project."
+
+Supporting text:
+"Tell us about your power requirements. Our team will help you explore the right solution."
+
+Include:
+- Company email address.
+- Business phone number or numbers.
+- Full business address.
+- Optional WhatsApp contact.
+- Google Maps link or embedded map.
+- Business enquiry form.
+
+The form should collect:
+- Name.
+- Company name, optional.
+- Email address.
+- Phone number.
+- Product of interest.
+- Enquiry message.
+
+Include validation, loading states, success feedback and clear error messages.
+
+The form must actually submit enquiries to a configured backend or email delivery service. Do not create a fake form that only displays a success message.
+
+Use environment variables for any secret credentials.
+
+Until the actual contact information and form delivery service are supplied, use clearly marked configuration placeholders.
+
+## 15. FOOTER
+
+Create a polished, comprehensive footer containing:
+
+Company:
+- Velmax Technologies logo.
+- Brief company description.
+- Business address.
+- Email.
+- Phone numbers.
+
+Navigation:
+- Home.
+- Products.
+- Industries.
+- About Us.
+- Contact.
+
+Products:
+- Servo Stabilizers.
+- Inverter Batteries.
+- Online UPS.
+
+Other:
+- Genuine social media links.
+- Privacy Policy.
+- Copyright notice.
+- Back-to-top control.
+
+Make phone numbers clickable with tel: links and email addresses clickable with mailto: links.
+
+Use the correct company information throughout the site.
+
+## 16. ANIMATION AND INTERACTION REQUIREMENTS
+
+Implement:
+- Smooth anchor navigation.
+- Sticky navigation.
+- Scroll-triggered section reveals.
+- Subtle parallax effects.
+- Product image transitions.
+- Animated text entrances.
+- Button hover and press feedback.
+- Working product navigation.
+- Functional mobile menu.
+- Back-to-top button.
+- Reduced-motion support for accessibility.
+
+Use an appropriate animation library, such as GSAP with ScrollTrigger or Framer Motion, where it provides real value.
+
+Do not add animations merely for decoration.
+
+Avoid heavy video backgrounds or excessive WebGL if they reduce performance on normal devices.
+
+Respect the user's reduced-motion preference.
+
+## 17. TECHNICAL REQUIREMENTS
+
+Build a complete working website, not just a visual mockup.
+
+Preferred stack:
+- React.
+- TypeScript.
+- Vite or the existing supported Replit framework.
+- Tailwind CSS or well-structured CSS.
+- GSAP ScrollTrigger or Framer Motion for animations.
+
+If the project already has a working framework, inspect it and reuse it instead of unnecessarily rebuilding it.
+
+Requirements:
+- Reusable components.
+- Clean project structure.
+- Responsive layouts.
+- Semantic HTML.
+- Accessible navigation and forms.
+- Optimized images.
+- Lazy loading below the fold.
+- Good loading performance.
+- SEO-friendly page titles and descriptions.
+- Open Graph metadata.
+- Favicon and company branding.
+- Proper error handling.
+- No broken links.
+- No console errors.
+- No unnecessary dependencies.
+
+Make the website responsive across desktop, laptop, tablet and mobile.
+
+On mobile, simplify pinned animations and large compositions when necessary. Do not allow horizontal overflow or text clipping.
+
+## 18. CONTENT AND ASSET MANAGEMENT
+
+Create a central configuration file for:
+- Company name.
+- Logo.
+- Brand colours.
+- Contact details.
+- Product names.
+- Product descriptions.
+- Product photographs.
+- Product specifications.
+- Industries served.
+- Social media URLs.
+
+Keep the content easy to update without searching through multiple components.
+
+Use actual Velmax product images when supplied. If placeholders are necessary, use high-quality temporary assets with clearly documented replacement paths.
+
+Do not use Melius logos, text, images or other proprietary assets in the finished website.
+
+## 19. DESIGN AND QUALITY CHECKS
+
+Before considering the project complete:
+
+1. Compare the experience with the reference website and identify where the design is too generic.
+2. Check that every major scroll reveals a purposeful new visual experience.
+3. Verify that the three product families have distinct, high-quality presentations.
+4. Test every CTA, anchor, dropdown and mobile navigation interaction.
+5. Submit a test enquiry and verify the actual delivery path.
+6. Check responsive layouts at desktop and mobile widths.
+7. Verify that all company details are correct.
+8. Test keyboard accessibility and reduced-motion behaviour.
+9. Check image loading, animation performance and browser console errors.
+10. Confirm that the production build succeeds.
+
+Do not stop after generating the initial layout. Implement the interactions, review the result in the browser, identify visual weaknesses and refine them.
+
+## 20. FINAL OBJECTIVE
+
+The finished website should communicate the identity of a serious power-equipment manufacturer through a premium, cinematic and interactive digital experience.
+
+Use the visual storytelling and scroll-driven product demonstrations of Melius as inspiration, but adapt the information architecture, content, branding and calls to action to Velmax Technologies.
+
+The website must end with clear company contact information and a working enquiry experience.
+
+Prioritize visual quality, product clarity, customer trust, performance and enquiries over unnecessary features.
+
+Start by inspecting the project and preparing the complete homepage structure. Then implement the website section by section, test it in the browser and refine it until it meets the quality standard described above.

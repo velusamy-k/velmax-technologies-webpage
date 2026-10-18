@@ -1,0 +1,1 @@
+- [Generated fetch typings](generated-fetch-types.md) — codegen references `Headers.entries()`, so the client TypeScript libs need `DOM.Iterable`.
