@@ -9,9 +9,12 @@ import {
   Check,
   ChevronDown,
   Menu,
+  Mail,
   MoveUpRight,
+  Phone,
   X,
 } from 'lucide-react';
+import { ServoModelGroups } from './components/servo-model-groups';
 import { siteConfig } from './site-config';
 import './site.css';
 
@@ -77,7 +80,7 @@ function Site() {
     const phone = String(form.get('phone') ?? '').trim();
     const product = selectedProduct;
     const message = String(form.get('message') ?? '').trim();
-    if (!name || !email || phone.length < 5 || message.length < 10) return;
+    if (!name || !email || phone.length < 5) return;
     enquiry.mutate(
       {
         data: {
@@ -174,7 +177,11 @@ function Site() {
               <span className="story-number">{product.number} / 03</span>
               <h2>{product.name.split(' ').slice(0, -1).join(' ')}<br /><em>{product.name.split(' ').slice(-1)}</em></h2>
               <p className="story-description">{product.description}</p>
-              <div className="story-benefits">{product.benefits.map((benefit, benefitIndex) => <div className="benefit-row" key={benefit}><span>0{benefitIndex + 1}</span><p>{benefit}</p><ArrowUpRight size={14} /></div>)}</div>
+              {'modelGroups' in product && product.modelGroups ? (
+                <ServoModelGroups groups={product.modelGroups} />
+              ) : (
+                <div className="story-benefits">{product.benefits.map((benefit, benefitIndex) => <div className="benefit-row" key={benefit}><span>0{benefitIndex + 1}</span><p>{benefit}</p><ArrowUpRight size={14} /></div>)}</div>
+              )}
                <a href="#contact" onClick={() => { setSelectedProduct(product.id as (typeof productOptions)[number]['value']); closeMenu(); }} className="button button-outline" data-testid={`link-enquire-${product.id}`}>Enquire about {product.shortName} <ArrowUpRight size={15} /></a>
               <span className="spec-note">Technical specifications and model availability are confirmed on enquiry.</span>
             </div>
@@ -206,10 +213,27 @@ function Site() {
             <h2>Let’s power<br /><em>your next move.</em></h2>
             <p>Tell us about your power requirements. Our team will help you explore the right solution.</p>
             <div className="contact-detail-list">
-              {contact.email && <a href={`mailto:${contact.email}`}><span>EMAIL</span>{contact.email}<ArrowUpRight size={14} /></a>}
-              {contact.phone && <a href={`tel:${contact.phone}`}><span>PHONE</span>{contact.phone}<ArrowUpRight size={14} /></a>}
+              {contact.phones.length > 0 && (
+                <div className="contact-detail-phones">
+                  <span className="contact-detail-icon" aria-hidden="true"><Phone size={14} /></span>
+                  <span>PHONE / MOBILE</span>
+                  <div className="contact-phone-values">
+                    {contact.phones.map((number) => (
+                      <a href={`tel:${number.replace(/\s/g, '')}`} key={number}>{number}<ArrowUpRight size={14} /></a>
+                    ))}
+                  </div>
+                </div>
+              )}
+              {contact.email && (
+                <a className="contact-detail-row" href={`mailto:${contact.email}`}>
+                  <span className="contact-detail-icon" aria-hidden="true"><Mail size={14} /></span>
+                  <span>EMAIL</span>
+                  {contact.email}
+                  <ArrowUpRight size={14} />
+                </a>
+              )}
               {contact.address && <div><span>ADDRESS</span>{contact.address}</div>}
-              {!contact.email && !contact.phone && !contact.address && <div className="contact-details-placeholder"><span>CONTACT DETAILS</span><p>Business email, phone and address will appear here once confirmed.</p></div>}
+              {!contact.email && contact.phones.length === 0 && !contact.address && <div className="contact-details-placeholder"><span>CONTACT DETAILS</span><p>Business email, phone and address will appear here once confirmed.</p></div>}
               {contact.whatsapp && <a href={contact.whatsapp} target="_blank" rel="noreferrer"><span>WHATSAPP</span>Message our team<ArrowUpRight size={14} /></a>}
               {contact.mapUrl && <a href={contact.mapUrl} target="_blank" rel="noreferrer"><span>LOCATION</span>View on map<ArrowUpRight size={14} /></a>}
             </div>
@@ -224,9 +248,9 @@ function Site() {
                 <div className="form-heading"><span>BUSINESS ENQUIRY</span><span>Fields marked * are required</span></div>
                 <form onSubmit={handleSubmit} className="enquiry-form">
                   <div className="form-row"><label>Name *<input name="name" required maxLength={120} autoComplete="name" placeholder="Your name" data-testid="input-name" /></label><label>Company<input name="company" maxLength={160} autoComplete="organization" placeholder="Company name" data-testid="input-company" /></label></div>
-                  <div className="form-row"><label>Work email *<input name="email" type="email" required maxLength={254} autoComplete="email" placeholder="you@company.com" data-testid="input-email" /></label><label>Phone *<input name="phone" type="tel" required minLength={5} maxLength={32} autoComplete="tel" placeholder="Include country code" data-testid="input-phone" /></label></div>
+                  <div className="form-row"><label>Work email *<input name="email" type="email" required maxLength={254} autoComplete="email" placeholder="you@company.com" data-testid="input-email" /></label><label>Phone *<input name="phone" type="tel" required minLength={5} maxLength={32} autoComplete="tel" placeholder="Enter your Valid Mobile number" data-testid="input-phone" /></label></div>
                   <label>Product of interest<select name="product" value={selectedProduct} onChange={(event) => setSelectedProduct(event.currentTarget.value as (typeof productOptions)[number]['value'])} data-testid="select-product">{productOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></label>
-                  <label>How can we help? *<textarea name="message" required minLength={10} maxLength={5000} rows={3} placeholder="A little about your power requirement…" data-testid="input-message" /></label>
+                  <label>How can we help?<textarea name="message" maxLength={5000} rows={3} placeholder="A little about your power requirement…" data-testid="input-message" /></label>
                   {enquiry.isError && <p className="form-error" role="alert" data-testid="status-enquiry-error">{errorMessage}</p>}
                   <button className="button button-orange form-submit" type="submit" disabled={enquiry.isPending} data-testid="button-submit-enquiry">{enquiry.isPending ? <><span className="button-loader" /> Sending enquiry…</> : <>Send enquiry <ArrowUpRight size={15} /></>}</button>
                   <p className="form-privacy">Your submission is saved for follow-up. Add Velmax’s approved privacy and retention terms before launch.</p>
@@ -243,7 +267,7 @@ function Site() {
           <div className="footer-brand-block"><BrandMark light /><p>{siteConfig.company.descriptor}</p></div>
           <div className="footer-column"><span>EXPLORE</span><a href="#top">Home</a><a href="#products">Products</a><a href="#approach">About</a><a href="#contact">Contact</a></div>
           <div className="footer-column"><span>PRODUCTS</span>{siteConfig.products.map((product) => <a href={`#${product.id}`} key={product.id}>{product.shortName}</a>)}</div>
-          <div className="footer-column footer-contact"><span>CONTACT</span>{contact.email ? <a href={`mailto:${contact.email}`}>{contact.email}</a> : <p>Business email to be confirmed</p>}{contact.phone ? <a href={`tel:${contact.phone}`}>{contact.phone}</a> : <p>Business phone to be confirmed</p>}{contact.address && <p>{contact.address}</p>}{siteConfig.company.social.map((link) => <a href={link.href} target="_blank" rel="noreferrer" key={link.label}>{link.label} <MoveUpRight size={12} /></a>)}</div>
+          <div className="footer-column footer-contact"><span>CONTACT</span>{contact.email ? <a href={`mailto:${contact.email}`}>{contact.email}</a> : <p>Business email to be confirmed</p>}{contact.phones.length > 0 ? contact.phones.map((number) => <a href={`tel:${number.replace(/\s/g, '')}`} key={number}>{number}</a>) : contact.phone ? <a href={`tel:${contact.phone}`}>{contact.phone}</a> : <p>Business phone to be confirmed</p>}{contact.address && <p>{contact.address}</p>}{siteConfig.company.social.map((link) => <a href={link.href} target="_blank" rel="noreferrer" key={link.label}>{link.label} <MoveUpRight size={12} /></a>)}</div>
         </div>
         <div className="footer-bottom"><span>© {new Date().getFullYear()} {siteConfig.company.name}</span><span>POWER EQUIPMENT / BUSINESS ENQUIRIES</span>{siteConfig.company.privacyUrl ? <a href={siteConfig.company.privacyUrl}>Privacy policy</a> : <span className="unverified-label">Privacy policy details to be confirmed</span>}<a href="#top" className="back-top" data-testid="link-back-to-top">BACK TO TOP <ArrowUpRight size={13} /></a></div>
       </footer>

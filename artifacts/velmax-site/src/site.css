@@ -137,6 +137,20 @@ h1, h2, h3, p { text-wrap: pretty; }
 .benefit-row p { font-size: 10px; color: #ddd9d1; margin: 0; }
 .story-2 .benefit-row p { color: #504c45; }
 .benefit-row svg { color: #a6a096; }
+.servo-model-groups { margin: 32px 0 29px; border-top: 1px solid var(--line-dark); }
+.servo-model-group { border-bottom: 1px solid var(--line-dark); }
+.servo-model-parent { border-bottom: 0; grid-template-columns: 35px 1fr; }
+.servo-model-parent p { font-size: 10px; color: #ddd9d1; margin: 0; }
+.servo-model-toggle { display: grid; place-items: center; cursor: pointer; }
+.servo-model-toggle input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.servo-model-checkbox { width: 14px; height: 14px; border: 1px solid rgba(230,107,48,.65); display: grid; place-items: center; transition: background .2s, border-color .2s; }
+.servo-model-toggle input:checked + .servo-model-checkbox { background: var(--orange-deep); border-color: var(--orange-deep); box-shadow: inset 0 0 0 2px #1d1d1b; }
+.servo-model-toggle input:focus-visible + .servo-model-checkbox { outline: 2px solid var(--orange); outline-offset: 2px; }
+.servo-model-variants { border-top: 1px solid rgba(246,241,232,.12); }
+.servo-model-link { text-decoration: none; color: inherit; grid-template-columns: 35px 1fr 15px; padding-left: 8px; transition: color .2s; }
+.servo-model-link:hover { color: var(--orange); }
+.servo-model-link:hover p { color: inherit; }
+.servo-variant-marker { width: 6px; height: 6px; border-radius: 50%; background: rgba(230,107,48,.55); justify-self: center; }
 .button-outline { border-color: rgba(246,241,232,.47); color: var(--chalk); }
 .button-outline:hover { border-color: var(--orange); background: var(--orange); }
 .story-2 .button-outline { color: var(--ink); border-color: rgba(37,37,34,.35); }
@@ -183,6 +197,12 @@ h1, h2, h3, p { text-wrap: pretty; }
 .contact-detail-list { margin-top: 55px; max-width: 385px; border-top: 1px solid var(--line-dark); }
 .contact-detail-list > a, .contact-detail-list > div { display: grid; grid-template-columns: 84px 1fr 16px; align-items: center; min-height: 54px; border-bottom: 1px solid var(--line-dark); font-size: 10px; color: var(--chalk); }
 .contact-detail-list > div { grid-template-columns: 84px 1fr; }
+.contact-detail-list .contact-detail-row, .contact-detail-list .contact-detail-phones { grid-template-columns: 22px 84px 1fr 16px; gap: 0 8px; align-items: center; }
+.contact-detail-list .contact-detail-phones { display: grid; padding: 12px 0; min-height: 54px; border-bottom: 1px solid var(--line-dark); font-size: 10px; color: var(--chalk); }
+.contact-detail-list .contact-phone-values { display: grid; gap: 8px; grid-column: 3 / -1; }
+.contact-detail-list .contact-phone-values a { display: inline-flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--chalk); font-size: 10px; }
+.contact-detail-list .contact-phone-values a:hover { color: var(--orange); }
+.contact-detail-icon { display: grid; place-items: center; color: var(--orange); }
 .contact-detail-list span { color: #aaa398; font-size: 8px; font-weight: 700; letter-spacing: .13em; }
 .contact-detail-list svg { color: var(--orange); }
 .contact-detail-list .contact-details-placeholder { display: block; padding: 15px 0; }
