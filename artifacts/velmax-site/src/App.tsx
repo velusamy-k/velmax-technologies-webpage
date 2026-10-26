@@ -14,7 +14,10 @@ import {
   Phone,
   X,
 } from 'lucide-react';
+import { BrandMark } from './components/brand-mark';
 import { ServoModelGroups } from './components/servo-model-groups';
+import { Route, Switch } from 'wouter';
+import ServoVariantFlowPage from './pages/servo-variant-flow';
 import { siteConfig } from './site-config';
 import './site.css';
 
@@ -27,20 +30,11 @@ const productOptions = [
 
 const queryClient = new QueryClient();
 
-function BrandMark({ light = false }: { light?: boolean }) {
-  return (
-    <a href="#top" className={`brand ${light ? 'brand-light' : ''}`} aria-label="Velmax Technologies, home" data-testid="link-home">
-      <span className="brand-symbol" aria-hidden="true"><i /><i /><i /></span>
-      <span className="brand-wordmark"><strong>VELMAX</strong><small>TECHNOLOGIES</small></span>
-    </a>
-  );
-}
-
 function ProductLink({ id, label, onClick }: { id: string; label: string; onClick?: () => void }) {
   return <a href={`#${id}`} onClick={onClick} data-testid={`link-product-${id}`}>{label}<ArrowUpRight size={13} /></a>;
 }
 
-function Site() {
+export function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [productMenuOpen, setProductMenuOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -275,12 +269,19 @@ function Site() {
   );
 }
 
-function App() {
+function AppRouter() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Site />
-    </QueryClientProvider>
+    <Switch>
+      <Route path="/products/servo-stabilizers/:variantId" component={ServoVariantFlowPage} />
+      <Route path="/" component={HomePage} />
+    </Switch>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AppRouter />
+    </QueryClientProvider>
+  );
+}

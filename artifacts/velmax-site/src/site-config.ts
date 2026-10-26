@@ -19,6 +19,53 @@ export type ServoModelGroup = {
   variants: ServoModelVariant[];
 };
 
+export type ServoManufacturingListItem = {
+  id: string;
+  label: string;
+  detail?: string;
+};
+
+export const servoVariantPath = (variantId: string) =>
+  `/products/servo-stabilizers/${variantId}`;
+
+export type ResolvedServoVariant = ServoModelVariant & {
+  groupId: string;
+  groupLabel: string;
+};
+
+function getServoProduct() {
+  const product = siteConfig.products.find((item) => item.id === 'servo-stabilizers');
+  return product && 'modelGroups' in product ? product : undefined;
+}
+
+export function getServoVariant(variantId: string): ResolvedServoVariant | undefined {
+  const product = getServoProduct();
+  if (!product?.modelGroups) return undefined;
+  for (const group of product.modelGroups) {
+    const variant = group.variants.find((item) => item.id === variantId);
+    if (variant) {
+      return {
+        ...variant,
+        groupId: group.id,
+        groupLabel: group.label,
+      };
+    }
+  }
+  return undefined;
+}
+
+export function getAllServoVariants(): ResolvedServoVariant[] {
+  const product = getServoProduct();
+  if (!product?.modelGroups) return [];
+  return product.modelGroups.flatMap((group) =>
+    group.variants.map((variant) => ({
+      ...variant,
+      groupId: group.id,
+      groupLabel: group.label,
+    })),
+  );
+}
+
 type BaseProduct = {
   id: string;
   number: string;
@@ -73,12 +120,12 @@ export const siteConfig = {
             {
               id: 'air-1ph',
               label: 'Air Cooled Single phase Input & Single Phase Output.',
-              href: '#',
+              href: servoVariantPath('air-1ph'),
             },
             {
               id: 'air-3ph',
               label: 'Air Cooled 3 Phase Input & 3 Phase Output.',
-              href: '#',
+              href: servoVariantPath('air-3ph'),
             },
           ],
         },
@@ -89,12 +136,12 @@ export const siteConfig = {
             {
               id: 'oil-1ph',
               label: 'Oil Cooled Single phase Input & Single Phase Output.',
-              href: '#',
+              href: servoVariantPath('oil-1ph'),
             },
             {
               id: 'oil-3ph',
               label: 'Oil Cooled 3 Phase Input & 3 Phase Output.',
-              href: '#',
+              href: servoVariantPath('oil-3ph'),
             },
           ],
         },
@@ -133,6 +180,29 @@ export const siteConfig = {
       ],
     },
   ] satisfies SiteProduct[],
+  // Replace placeholder detail lines with verified manufacturing copy when supplied.
+  servoManufacturingList: [
+    {
+      id: 'air-1ph',
+      label: 'Air Cooled — Single phase input & single phase output',
+      detail: 'Manufacturing line placeholder — confirm model range on enquiry.',
+    },
+    {
+      id: 'air-3ph',
+      label: 'Air Cooled — 3 phase input & 3 phase output',
+      detail: 'Manufacturing line placeholder — confirm model range on enquiry.',
+    },
+    {
+      id: 'oil-1ph',
+      label: 'Oil Cooled — Single phase input & single phase output',
+      detail: 'Manufacturing line placeholder — confirm model range on enquiry.',
+    },
+    {
+      id: 'oil-3ph',
+      label: 'Oil Cooled — 3 phase input & 3 phase output',
+      detail: 'Manufacturing line placeholder — confirm model range on enquiry.',
+    },
+  ] satisfies ServoManufacturingListItem[],
   // Empty until customer applications have been verified by the company.
   industries: [] as { name: string; description: string }[],
   // Empty until certificates, testimonials or measurable claims are verified.

@@ -30,7 +30,7 @@ export const createBusinessEnquiryBodyEmailMax = 254;
 export const createBusinessEnquiryBodyPhoneMin = 5;
 export const createBusinessEnquiryBodyPhoneMax = 32;
 
-export const createBusinessEnquiryBodyMessageMin = 10;
+export const createBusinessEnquiryBodyMessageMin = 0;
 export const createBusinessEnquiryBodyMessageMax = 5000;
 
 

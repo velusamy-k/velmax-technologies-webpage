@@ -94,7 +94,7 @@ components:
             - general
         message:
           type: string
-          minLength: 10
+          minLength: 0
           maxLength: 5000
       required:
         - name

@@ -1,0 +1,265 @@
+.servo-flow-page {
+  min-height: 100svh;
+  background: var(--ink);
+  color: var(--chalk);
+  display: flex;
+  flex-direction: column;
+}
+
+.servo-flow-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px clamp(20px, 5vw, 48px);
+  border-bottom: 1px solid rgba(246, 241, 232, 0.12);
+}
+
+.servo-flow-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ddd9d1;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.servo-flow-back:hover {
+  color: var(--orange);
+}
+
+.servo-flow-main {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(280px, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(24px, 4vw, 56px);
+  padding: clamp(32px, 5vw, 72px) clamp(20px, 5vw, 48px) 48px;
+  align-items: start;
+}
+
+.servo-flow-copy .eyebrow {
+  color: #f8d9c3;
+}
+
+.servo-flow-copy .eyebrow-line {
+  background: #f8d9c3;
+}
+
+.servo-flow-copy h1 {
+  margin: 28px 0 16px;
+  font-size: clamp(36px, 4.5vw, 58px);
+  line-height: 0.95;
+  letter-spacing: -0.075em;
+  font-weight: 500;
+}
+
+.servo-flow-copy h1 em {
+  font-family: var(--app-font-serif);
+  font-style: italic;
+  color: var(--orange);
+}
+
+.servo-flow-lead {
+  max-width: 420px;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #bab6ac;
+  margin: 0 0 32px;
+}
+
+.servo-flow-list-heading {
+  font-size: 8px;
+  letter-spacing: 0.17em;
+  color: #a6a096;
+  margin: 0 0 12px;
+}
+
+.servo-flow-manufacturing-list {
+  border-top: 1px solid var(--line-dark);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.servo-flow-manufacturing-list > li {
+  margin: 0;
+  padding: 0;
+}
+
+.servo-flow-manufacturing-item {
+  display: grid;
+  grid-template-columns: 35px 1fr;
+  gap: 8px;
+  align-items: start;
+  min-height: 51px;
+  padding: 14px 12px;
+  margin: 0 -12px;
+  border-bottom: 1px solid var(--line-dark);
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.servo-flow-manufacturing-item:hover {
+  background: rgba(230, 107, 48, 0.05);
+}
+
+.servo-flow-manufacturing-item:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+}
+
+.servo-flow-manufacturing-item.is-active {
+  background: rgba(230, 107, 48, 0.08);
+}
+
+.servo-flow-manufacturing-item > span {
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  color: var(--orange);
+  padding-top: 2px;
+}
+
+.servo-flow-manufacturing-item p {
+  margin: 0;
+  font-size: 10px;
+  color: #ddd9d1;
+  line-height: 1.55;
+}
+
+.servo-flow-manufacturing-item small {
+  display: block;
+  margin-top: 4px;
+  font-size: 9px;
+  color: #a6a096;
+  line-height: 1.5;
+}
+
+.servo-flow-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+}
+
+.servo-flow-marquee {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(246, 241, 232, 0.1);
+  background: #1d1d1b;
+  padding: 18px 0;
+}
+
+.servo-flow-marquee-live {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.servo-flow-marquee-static {
+  display: none;
+  gap: 12px;
+  padding: 0 18px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.servo-flow-track-wrap {
+  overflow: hidden;
+  width: 100%;
+}
+
+.servo-flow-track {
+  display: flex;
+  gap: 14px;
+  width: max-content;
+  animation: servoFlowMarquee 42s linear infinite;
+  padding-left: 14px;
+}
+
+.servo-flow-track-wrap--reverse .servo-flow-track {
+  animation-direction: reverse;
+  animation-duration: 48s;
+}
+
+.servo-flow-card {
+  flex: 0 0 auto;
+  width: clamp(160px, 22vw, 240px);
+  margin: 0;
+  background: #252522;
+  border: 1px solid rgba(246, 241, 232, 0.08);
+  overflow: hidden;
+}
+
+.servo-flow-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: 48% center;
+  opacity: 0.92;
+}
+
+.servo-flow-card figcaption {
+  padding: 8px 10px;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #a6a096;
+}
+
+.servo-flow-footer {
+  padding: 24px clamp(20px, 5vw, 48px) 40px;
+  border-top: 1px solid rgba(246, 241, 232, 0.12);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.servo-flow-footer-note {
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: #a6a096;
+  max-width: 360px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@keyframes servoFlowMarquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 900px) {
+  .servo-flow-main {
+    grid-template-columns: 1fr;
+  }
+
+  .servo-flow-visual {
+    order: -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .servo-flow-marquee-live {
+    display: none;
+  }
+
+  .servo-flow-marquee-static {
+    display: flex;
+  }
+
+  .servo-flow-track {
+    animation: none;
+  }
+}

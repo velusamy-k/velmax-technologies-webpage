@@ -24,7 +24,7 @@ export interface BusinessEnquiryInput {
   phone: string;
   product: BusinessEnquiryInputProduct;
   /**
-     * @minLength 10
+     * @minLength 0
      * @maxLength 5000
      */
   message: string;
