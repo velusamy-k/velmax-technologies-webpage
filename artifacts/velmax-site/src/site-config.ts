@@ -94,7 +94,8 @@ export const siteConfig = {
       phone: '+91 9025277770' as string | null,
       phones: ['+91 9025277770', '+91 9003077471'] as string[],
       address: null as string | null,
-      whatsapp: null as string | null,
+      /** Click-to-chat for +91 9025277770; form uses the same number via whatsapp-enquiry.ts */
+      whatsapp: 'https://wa.me/919025277770' as string | null,
       mapUrl: null as string | null,
     },
     social: [] as { label: string; href: string }[],

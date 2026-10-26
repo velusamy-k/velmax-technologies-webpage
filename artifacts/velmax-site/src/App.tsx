@@ -1,6 +1,4 @@
 import { useEffect, useState, type FormEvent } from 'react';
-import { useCreateBusinessEnquiry } from '@workspace/api-client-react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import {
   ArrowDown,
   ArrowDownRight,
@@ -14,8 +12,14 @@ import {
   Phone,
   X,
 } from 'lucide-react';
+import { FaWhatsapp } from 'react-icons/fa';
 import { BrandMark } from './components/brand-mark';
 import { ServoModelGroups } from './components/servo-model-groups';
+import {
+  buildWhatsAppClickToChatUrl,
+  buildWhatsAppEnquiryUrl,
+  type EnquiryProductValue,
+} from './lib/whatsapp-enquiry';
 import { Route, Switch } from 'wouter';
 import ServoVariantFlowPage from './pages/servo-variant-flow';
 import { siteConfig } from './site-config';
@@ -28,7 +32,9 @@ const productOptions = [
   { value: 'general', label: 'Not sure yet' },
 ] as const;
 
-const queryClient = new QueryClient();
+const whatsAppIntroUrl = buildWhatsAppClickToChatUrl(
+  'Hello Velmax Technologies,\n\nI would like to enquire about your power equipment.',
+);
 
 function ProductLink({ id, label, onClick }: { id: string; label: string; onClick?: () => void }) {
   return <a href={`#${id}`} onClick={onClick} data-testid={`link-product-${id}`}>{label}<ArrowUpRight size={13} /></a>;
@@ -39,8 +45,8 @@ export function HomePage() {
   const [productMenuOpen, setProductMenuOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<(typeof productOptions)[number]['value']>('general');
-  const enquiry = useCreateBusinessEnquiry();
   const contact = siteConfig.company.contact;
+  const whatsAppContactHref = contact.whatsapp ?? whatsAppIntroUrl;
 
   useEffect(() => {
     const items = document.querySelectorAll('.reveal');
@@ -72,27 +78,22 @@ export function HomePage() {
     const company = String(form.get('company') ?? '').trim();
     const email = String(form.get('email') ?? '').trim();
     const phone = String(form.get('phone') ?? '').trim();
-    const product = selectedProduct;
+    const product = selectedProduct as EnquiryProductValue;
     const message = String(form.get('message') ?? '').trim();
     if (!name || !email || phone.length < 5) return;
-    enquiry.mutate(
-      {
-        data: {
-          name,
-          ...(company ? { company } : {}),
-          email,
-          phone,
-          product: product as (typeof productOptions)[number]['value'],
-          message,
-        },
-      },
-      { onSuccess: () => setSubmitted(true) },
-    );
-  };
 
-  const errorMessage = enquiry.error instanceof Error
-    ? enquiry.error.message
-    : 'We couldn’t send your enquiry just now. Please try again.';
+    const whatsAppUrl = buildWhatsAppEnquiryUrl({
+      name,
+      ...(company ? { company } : {}),
+      email,
+      phone,
+      product,
+      ...(message ? { message } : {}),
+    });
+
+    window.open(whatsAppUrl, '_blank', 'noopener,noreferrer');
+    setSubmitted(true);
+  };
 
   return (
     <main id="top">
@@ -228,14 +229,19 @@ export function HomePage() {
               )}
               {contact.address && <div><span>ADDRESS</span>{contact.address}</div>}
               {!contact.email && contact.phones.length === 0 && !contact.address && <div className="contact-details-placeholder"><span>CONTACT DETAILS</span><p>Business email, phone and address will appear here once confirmed.</p></div>}
-              {contact.whatsapp && <a href={contact.whatsapp} target="_blank" rel="noreferrer"><span>WHATSAPP</span>Message our team<ArrowUpRight size={14} /></a>}
+              <a className="contact-detail-row" href={whatsAppContactHref} target="_blank" rel="noreferrer">
+                <span className="contact-detail-icon" aria-hidden="true"><FaWhatsapp size={14} /></span>
+                <span>WHATSAPP</span>
+                Message our team
+                <ArrowUpRight size={14} />
+              </a>
               {contact.mapUrl && <a href={contact.mapUrl} target="_blank" rel="noreferrer"><span>LOCATION</span>View on map<ArrowUpRight size={14} /></a>}
             </div>
           </div>
           <div className="enquiry-panel">
             {submitted ? (
               <div className="form-success" role="status" data-testid="status-enquiry-success">
-                 <span className="success-icon"><Check size={21} /></span><span className="eyebrow">ENQUIRY RECEIVED</span><h3>Thank you.<br /><em>We have your note.</em></h3><p>Your enquiry has been received and saved.</p><button className="text-link" onClick={() => { setSubmitted(false); enquiry.reset(); setSelectedProduct('general'); }}>Send another enquiry <ArrowUpRight size={15} /></button>
+                 <span className="success-icon"><Check size={21} /></span><span className="eyebrow">WHATSAPP OPENED</span><h3>Thank you.<br /><em>Continue in WhatsApp.</em></h3><p>Your enquiry details were prepared in WhatsApp. Send the message there to reach our team.</p><button className="text-link" type="button" onClick={() => { setSubmitted(false); setSelectedProduct('general'); }}>Send another enquiry <ArrowUpRight size={15} /></button>
               </div>
             ) : (
               <>
@@ -245,9 +251,14 @@ export function HomePage() {
                   <div className="form-row"><label>Work email *<input name="email" type="email" required maxLength={254} autoComplete="email" placeholder="you@company.com" data-testid="input-email" /></label><label>Phone *<input name="phone" type="tel" required minLength={5} maxLength={32} autoComplete="tel" placeholder="Enter your Valid Mobile number" data-testid="input-phone" /></label></div>
                   <label>Product of interest<select name="product" value={selectedProduct} onChange={(event) => setSelectedProduct(event.currentTarget.value as (typeof productOptions)[number]['value'])} data-testid="select-product">{productOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></label>
                   <label>How can we help?<textarea name="message" maxLength={5000} rows={3} placeholder="A little about your power requirement…" data-testid="input-message" /></label>
-                  {enquiry.isError && <p className="form-error" role="alert" data-testid="status-enquiry-error">{errorMessage}</p>}
-                  <button className="button button-orange form-submit" type="submit" disabled={enquiry.isPending} data-testid="button-submit-enquiry">{enquiry.isPending ? <><span className="button-loader" /> Sending enquiry…</> : <>Send enquiry <ArrowUpRight size={15} /></>}</button>
-                  <p className="form-privacy">Your submission is saved for follow-up. Add Velmax’s approved privacy and retention terms before launch.</p>
+                  <button className="button button-orange form-submit" type="submit" data-testid="button-submit-enquiry">
+                    <span className="form-submit-label">
+                      Send enquiry
+                      <FaWhatsapp size={17} aria-hidden="true" />
+                      <ArrowUpRight size={15} aria-hidden="true" />
+                    </span>
+                  </button>
+                  <p className="form-privacy">Submitting opens WhatsApp with your enquiry pre-filled for +91 9025277770. Add Velmax’s approved privacy and retention terms before launch.</p>
                 </form>
               </>
             )}
@@ -279,9 +290,5 @@ function AppRouter() {
 }
 
 export default function App() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <AppRouter />
-    </QueryClientProvider>
-  );
+  return <AppRouter />;
 }
