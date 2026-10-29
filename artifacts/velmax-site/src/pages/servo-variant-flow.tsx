@@ -70,7 +70,7 @@ export default function ServoVariantFlowPage() {
         <div className="servo-flow-visual">
           <ServoFlowMarquee />
           <p className="servo-flow-footer-note">
-            Concept imagery for layout only. Approved product photography will replace placeholders before launch.
+            Representative models from our manufacturing range. Specifications and availability are confirmed on enquiry.
           </p>
         </div>
       </div>
