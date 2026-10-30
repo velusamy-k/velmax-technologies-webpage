@@ -1,40 +1,28 @@
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useState } from 'react';
 import {
   ArrowDown,
   ArrowDownRight,
   ArrowRight,
   ArrowUpRight,
-  Check,
   ChevronDown,
   Menu,
-  Mail,
   MoveUpRight,
-  Phone,
   X,
 } from 'lucide-react';
-import { FaWhatsapp } from 'react-icons/fa';
 import { BrandMark } from './components/brand-mark';
+import { BusinessEnquirySection, productOptions } from './components/business-enquiry-section';
+import { ClientLogoMarquee } from './components/client-logo-marquee';
 import { ServoModelGroups } from './components/servo-model-groups';
+import type { ProductOptionValue } from './lib/enquiry-product-options';
 import {
-  buildWhatsAppClickToChatUrl,
-  buildWhatsAppEnquiryUrl,
-  type EnquiryProductValue,
+  clearEnquiryPrefill,
+  readEnquiryPrefill,
+  type EnquiryPrefill,
 } from './lib/whatsapp-enquiry';
 import { Route, Switch } from 'wouter';
 import ServoVariantFlowPage from './pages/servo-variant-flow';
 import { siteConfig } from './site-config';
 import './site.css';
-
-const productOptions = [
-  { value: 'servo-stabilizers', label: 'Servo stabilizers' },
-  { value: 'inverter-batteries', label: 'Inverter batteries' },
-  { value: 'online-ups', label: 'Online UPS systems' },
-  { value: 'general', label: 'Not sure yet' },
-] as const;
-
-const whatsAppIntroUrl = buildWhatsAppClickToChatUrl(
-  'Hello Velmax Technologies,\n\nI would like to enquire about your power equipment.',
-);
 
 function ProductLink({ id, label, onClick }: { id: string; label: string; onClick?: () => void }) {
   return <a href={`#${id}`} onClick={onClick} data-testid={`link-product-${id}`}>{label}<ArrowUpRight size={13} /></a>;
@@ -43,10 +31,28 @@ function ProductLink({ id, label, onClick }: { id: string; label: string; onClic
 export function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [productMenuOpen, setProductMenuOpen] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<(typeof productOptions)[number]['value']>('general');
+  const [selectedProduct, setSelectedProduct] = useState<ProductOptionValue>('general');
+  const [enquiryPrefill, setEnquiryPrefill] = useState<EnquiryPrefill | null>(null);
   const contact = siteConfig.company.contact;
-  const whatsAppContactHref = contact.whatsapp ?? whatsAppIntroUrl;
+
+  const applyEnquiryPrefillFromStorage = () => {
+    const prefill = readEnquiryPrefill();
+    if (!prefill) return;
+    setEnquiryPrefill(prefill);
+    setSelectedProduct(prefill.product);
+  };
+
+  useEffect(() => {
+    applyEnquiryPrefillFromStorage();
+
+    const onHashChange = () => {
+      if (window.location.hash === '#contact') {
+        applyEnquiryPrefillFromStorage();
+      }
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
 
   useEffect(() => {
     const items = document.querySelectorAll('.reveal');
@@ -71,28 +77,11 @@ export function HomePage() {
     setProductMenuOpen(false);
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const form = new FormData(event.currentTarget);
-    const name = String(form.get('name') ?? '').trim();
-    const company = String(form.get('company') ?? '').trim();
-    const email = String(form.get('email') ?? '').trim();
-    const phone = String(form.get('phone') ?? '').trim();
-    const product = selectedProduct as EnquiryProductValue;
-    const message = String(form.get('message') ?? '').trim();
-    if (!name || !email || phone.length < 5) return;
-
-    const whatsAppUrl = buildWhatsAppEnquiryUrl({
-      name,
-      ...(company ? { company } : {}),
-      email,
-      phone,
-      product,
-      ...(message ? { message } : {}),
-    });
-
-    window.open(whatsAppUrl, '_blank', 'noopener,noreferrer');
-    setSubmitted(true);
+  const handlePrefillChange = (prefill: EnquiryPrefill | null) => {
+    setEnquiryPrefill(prefill);
+    if (!prefill) {
+      clearEnquiryPrefill();
+    }
   };
 
   return (
@@ -151,7 +140,7 @@ export function HomePage() {
         <div className="product-rail">
           {siteConfig.products.map((product, index) => (
             <a className={`rail-item rail-${index + 1} reveal`} href={`#${product.id}`} key={product.id} data-testid={`link-product-card-${product.id}`}>
-              <div className="rail-image"><img src={product.image} alt={product.imageAlt} loading="lazy" /><span className="concept-tag">CONCEPT IMAGE</span><span className="rail-arrow"><ArrowUpRight size={18} /></span></div>
+              <div className="rail-image"><img src={product.image} alt={product.imageAlt} loading="lazy" /><span className="rail-arrow"><ArrowUpRight size={18} /></span></div>
               <div className="rail-meta"><span>{product.number} / {product.eyebrow}</span><span>EXPLORE <ArrowRight size={12} /></span></div>
               <h3>{product.shortName}</h3>
             </a>
@@ -164,7 +153,6 @@ export function HomePage() {
           <article className={`product-story story-${index + 1}`} id={product.id} key={product.id}>
             <div className="story-visual">
               <div className="story-image"><img src={product.image} alt={product.imageAlt} loading="lazy" /><div className="story-image-shade" /></div>
-              <div className="story-image-note"><span>VISUAL PLACEHOLDER</span><span>REPLACE WITH APPROVED PRODUCT PHOTOGRAPHY</span></div>
               <span className="story-watermark">{product.number}</span>
             </div>
             <div className="story-copy">
@@ -174,10 +162,10 @@ export function HomePage() {
               <p className="story-description">{product.description}</p>
               {'modelGroups' in product && product.modelGroups ? (
                 <ServoModelGroups groups={product.modelGroups} />
-              ) : (
+              ) : product.benefits.length > 0 ? (
                 <div className="story-benefits">{product.benefits.map((benefit, benefitIndex) => <div className="benefit-row" key={benefit}><span>0{benefitIndex + 1}</span><p>{benefit}</p><ArrowUpRight size={14} /></div>)}</div>
-              )}
-               <a href="#contact" onClick={() => { setSelectedProduct(product.id as (typeof productOptions)[number]['value']); closeMenu(); }} className="button button-outline" data-testid={`link-enquire-${product.id}`}>Enquire about {product.shortName} <ArrowUpRight size={15} /></a>
+              ) : null}
+               <a href="#contact" onClick={() => { setSelectedProduct(product.id as ProductOptionValue); closeMenu(); }} className="button button-outline" data-testid={`link-enquire-${product.id}`}>Enquire about {product.shortName} <ArrowUpRight size={15} /></a>
               <span className="spec-note">Technical specifications and model availability are confirmed on enquiry.</span>
             </div>
           </article>
@@ -201,71 +189,23 @@ export function HomePage() {
       {siteConfig.industries.length > 0 && <section className="industries" id="industries"><div className="section-top"><span className="eyebrow"><span className="eyebrow-line" /> APPLICATIONS</span></div><h2>Power that meets<br /><em>the working world.</em></h2><div className="industry-list">{siteConfig.industries.map((item) => <article key={item.name}><h3>{item.name}</h3><p>{item.description}</p></article>)}</div></section>}
       {siteConfig.credentials.length > 0 && <section className="credibility" aria-label="Company credentials">{siteConfig.credentials.map((item) => <div key={item.label}><strong>{item.value}</strong><span>{item.label}</span></div>)}</section>}
 
-      <section className="contact" id="contact">
-        <div className="contact-top"><span className="eyebrow"><span className="eyebrow-line" /> 04 / START A CONVERSATION</span><span className="section-index">LET'S TALK POWER</span></div>
-        <div className="contact-layout">
-          <div className="contact-copy">
-            <h2>Let’s power<br /><em>your next move.</em></h2>
-            <p>Tell us about your power requirements. Our team will help you explore the right solution.</p>
-            <div className="contact-detail-list">
-              {contact.phones.length > 0 && (
-                <div className="contact-detail-phones">
-                  <span className="contact-detail-icon" aria-hidden="true"><Phone size={14} /></span>
-                  <span>PHONE / MOBILE</span>
-                  <div className="contact-phone-values">
-                    {contact.phones.map((number) => (
-                      <a href={`tel:${number.replace(/\s/g, '')}`} key={number}>{number}<ArrowUpRight size={14} /></a>
-                    ))}
-                  </div>
-                </div>
-              )}
-              {contact.email && (
-                <a className="contact-detail-row" href={`mailto:${contact.email}`}>
-                  <span className="contact-detail-icon" aria-hidden="true"><Mail size={14} /></span>
-                  <span>EMAIL</span>
-                  {contact.email}
-                  <ArrowUpRight size={14} />
-                </a>
-              )}
-              {contact.address && <div><span>ADDRESS</span>{contact.address}</div>}
-              {!contact.email && contact.phones.length === 0 && !contact.address && <div className="contact-details-placeholder"><span>CONTACT DETAILS</span><p>Business email, phone and address will appear here once confirmed.</p></div>}
-              <a className="contact-detail-row" href={whatsAppContactHref} target="_blank" rel="noreferrer">
-                <span className="contact-detail-icon" aria-hidden="true"><FaWhatsapp size={14} /></span>
-                <span>WHATSAPP</span>
-                Message our team
-                <ArrowUpRight size={14} />
-              </a>
-              {contact.mapUrl && <a href={contact.mapUrl} target="_blank" rel="noreferrer"><span>LOCATION</span>View on map<ArrowUpRight size={14} /></a>}
-            </div>
-          </div>
-          <div className="enquiry-panel">
-            {submitted ? (
-              <div className="form-success" role="status" data-testid="status-enquiry-success">
-                 <span className="success-icon"><Check size={21} /></span><span className="eyebrow">WHATSAPP OPENED</span><h3>Thank you.<br /><em>Continue in WhatsApp.</em></h3><p>Your enquiry details were prepared in WhatsApp. Send the message there to reach our team.</p><button className="text-link" type="button" onClick={() => { setSubmitted(false); setSelectedProduct('general'); }}>Send another enquiry <ArrowUpRight size={15} /></button>
-              </div>
-            ) : (
-              <>
-                <div className="form-heading"><span>BUSINESS ENQUIRY</span><span>Fields marked * are required</span></div>
-                <form onSubmit={handleSubmit} className="enquiry-form">
-                  <div className="form-row"><label>Name *<input name="name" required maxLength={120} autoComplete="name" placeholder="Your name" data-testid="input-name" /></label><label>Company<input name="company" maxLength={160} autoComplete="organization" placeholder="Company name" data-testid="input-company" /></label></div>
-                  <div className="form-row"><label>Work email *<input name="email" type="email" required maxLength={254} autoComplete="email" placeholder="you@company.com" data-testid="input-email" /></label><label>Phone *<input name="phone" type="tel" required minLength={5} maxLength={32} autoComplete="tel" placeholder="Enter your Valid Mobile number" data-testid="input-phone" /></label></div>
-                  <label>Product of interest<select name="product" value={selectedProduct} onChange={(event) => setSelectedProduct(event.currentTarget.value as (typeof productOptions)[number]['value'])} data-testid="select-product">{productOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></label>
-                  <label>How can we help?<textarea name="message" maxLength={5000} rows={3} placeholder="A little about your power requirement…" data-testid="input-message" /></label>
-                  <button className="button button-orange form-submit" type="submit" data-testid="button-submit-enquiry">
-                    <span className="form-submit-label">
-                      Send enquiry
-                      <FaWhatsapp size={17} aria-hidden="true" />
-                      <ArrowUpRight size={15} aria-hidden="true" />
-                    </span>
-                  </button>
-                  <p className="form-privacy">Submitting opens WhatsApp with your enquiry pre-filled for +91 9025277770. Add Velmax’s approved privacy and retention terms before launch.</p>
-                </form>
-              </>
-            )}
-          </div>
+      <section className="our-services reveal" id="our-services" aria-labelledby="our-services-title">
+        <div className="our-services-header">
+          <span className="eyebrow"><span className="eyebrow-line" /> PARTNERS & CLIENTS</span>
+          <h2 id="our-services-title">Our <em>Services</em></h2>
+          <p>Businesses and institutions we are proud to support with dependable power equipment.</p>
         </div>
-        <div className="contact-orbit" aria-hidden="true" />
+        <ClientLogoMarquee />
       </section>
+
+      <BusinessEnquirySection
+        id="contact"
+        showHomeContactHeader
+        prefill={enquiryPrefill}
+        onPrefillChange={handlePrefillChange}
+        selectedProduct={selectedProduct}
+        onSelectedProductChange={setSelectedProduct}
+      />
 
       <footer className="site-footer">
         <div className="footer-main">

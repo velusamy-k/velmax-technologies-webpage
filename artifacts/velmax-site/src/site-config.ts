@@ -158,11 +158,7 @@ export const siteConfig = {
       imageAlt: 'Generated concept image of unbranded inverter battery units',
       description:
         'A reliable backup system begins with the right battery. Tell us about your load and usage; our team can help discuss an appropriate configuration.',
-      benefits: [
-        'A considered match for your inverter system',
-        'Guidance shaped around the way you use power',
-        'Available variants and specifications on enquiry',
-      ],
+      benefits: [],
     },
     {
       id: 'online-ups',
@@ -174,11 +170,7 @@ export const siteConfig = {
       imageAlt: 'Generated concept image of an unbranded online UPS cabinet',
       description:
         'For operations where power continuity matters. Start a conversation about the load, environment and level of continuity your installation requires.',
-      benefits: [
-        'A solution conversation focused on your application',
-        'Technical details confirmed for each requirement',
-        'Models and specifications available on enquiry',
-      ],
+      benefits: [],
     },
   ] satisfies SiteProduct[],
   // Replace placeholder detail lines with verified manufacturing copy when supplied.
@@ -186,22 +178,18 @@ export const siteConfig = {
     {
       id: 'air-1ph',
       label: 'Air Cooled — Single phase input & single phase output',
-      detail: 'Manufacturing line placeholder — confirm model range on enquiry.',
     },
     {
       id: 'air-3ph',
       label: 'Air Cooled — 3 phase input & 3 phase output',
-      detail: 'Manufacturing line placeholder — confirm model range on enquiry.',
     },
     {
       id: 'oil-1ph',
       label: 'Oil Cooled — Single phase input & single phase output',
-      detail: 'Manufacturing line placeholder — confirm model range on enquiry.',
     },
     {
       id: 'oil-3ph',
       label: 'Oil Cooled — 3 phase input & 3 phase output',
-      detail: 'Manufacturing line placeholder — confirm model range on enquiry.',
     },
   ] satisfies ServoManufacturingListItem[],
   // Empty until customer applications have been verified by the company.

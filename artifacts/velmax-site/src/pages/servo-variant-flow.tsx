@@ -1,15 +1,31 @@
+import { useEffect, useState } from 'react';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { Link, Redirect, useParams } from 'wouter';
 import { BrandMark } from '@/components/brand-mark';
+import { BusinessEnquirySection } from '@/components/business-enquiry-section';
 import { ServoFlowMarquee } from '@/components/servo-flow-marquee';
+import { ServoVariantCatalog } from '@/components/servo-variant-catalog';
+import type { EnquiryPrefill } from '@/lib/whatsapp-enquiry';
+import type { ServoVariantId } from '@/servo-variant-catalog';
 import { getServoVariant, servoVariantPath, siteConfig } from '@/site-config';
 import '../site.css';
 import '../servo-flow.css';
+
+const SERVO_ENQUIRY_SECTION_ID = 'servo-business-enquiry';
+
+function scrollToServoEnquiry() {
+  document.getElementById(SERVO_ENQUIRY_SECTION_ID)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
 
 export default function ServoVariantFlowPage() {
   const params = useParams<{ variantId: string }>();
   const variantId = params.variantId ?? '';
   const variant = getServoVariant(variantId);
+  const [enquiryPrefill, setEnquiryPrefill] = useState<EnquiryPrefill | null>(null);
+
+  useEffect(() => {
+    setEnquiryPrefill(null);
+  }, [variantId]);
 
   if (!variant) {
     return <Redirect to="/#servo-stabilizers" />;
@@ -18,6 +34,24 @@ export default function ServoVariantFlowPage() {
   const servoProduct = siteConfig.products.find((item) => item.id === 'servo-stabilizers');
   const titleLead = servoProduct?.name.split(' ').slice(0, -1).join(' ') ?? 'Servo';
   const titleEm = servoProduct?.name.split(' ').slice(-1)[0] ?? 'stabilizers';
+
+  const handleSelectModel = (model: string) => {
+    setEnquiryPrefill({
+      product: 'servo-stabilizers',
+      configuration: variant.label,
+      model,
+    });
+    requestAnimationFrame(() => scrollToServoEnquiry());
+  };
+
+  const handleFooterEnquire = () => {
+    setEnquiryPrefill({
+      product: 'servo-stabilizers',
+      configuration: variant.label,
+      model: 'General line enquiry — model to be confirmed',
+    });
+    requestAnimationFrame(() => scrollToServoEnquiry());
+  };
 
   return (
     <div className="servo-flow-page">
@@ -65,6 +99,10 @@ export default function ServoVariantFlowPage() {
             })}
           </ul>
           </nav>
+          <ServoVariantCatalog
+            variantId={variantId as ServoVariantId}
+            onSelectModel={handleSelectModel}
+          />
         </div>
 
         <div className="servo-flow-visual">
@@ -79,14 +117,25 @@ export default function ServoVariantFlowPage() {
         <p className="servo-flow-footer-note">
           Technical specifications and model availability are confirmed on enquiry.
         </p>
-        <a
+        <button
+          type="button"
           className="button button-outline"
-          href="/#contact"
           data-testid="link-enquire-servo-flow"
+          onClick={handleFooterEnquire}
         >
           Enquire about Servo stabilizers <ArrowUpRight size={15} />
-        </a>
+        </button>
       </footer>
+
+      <BusinessEnquirySection
+        id={SERVO_ENQUIRY_SECTION_ID}
+        sectionClassName="servo-flow-enquiry contact"
+        prefill={enquiryPrefill}
+        onPrefillChange={setEnquiryPrefill}
+        defaultProduct="servo-stabilizers"
+        lockProductFamily
+        clearSessionOnSubmit={false}
+      />
     </div>
   );
 }

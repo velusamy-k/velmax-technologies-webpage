@@ -4,6 +4,12 @@ export type EnquiryProductValue =
   | 'online-ups'
   | 'general';
 
+export type EnquiryPrefill = {
+  product: EnquiryProductValue;
+  configuration: string;
+  model: string;
+};
+
 export type WhatsAppEnquiryFields = {
   name: string;
   company?: string;
@@ -11,10 +17,14 @@ export type WhatsAppEnquiryFields = {
   phone: string;
   product: EnquiryProductValue;
   message?: string;
+  configuration?: string;
+  model?: string;
 };
 
 /** Digits only, no leading + — format required by wa.me / api.whatsapp.com */
 export const WHATSAPP_BUSINESS_PHONE = '919025277770';
+
+const ENQUIRY_PREFILL_KEY = 'velmax-enquiry-prefill';
 
 const productLabels: Record<EnquiryProductValue, string> = {
   'servo-stabilizers': 'Servo Stabilizer',
@@ -27,6 +37,39 @@ export function getEnquiryProductLabel(product: EnquiryProductValue): string {
   return productLabels[product];
 }
 
+export function saveEnquiryPrefill(prefill: EnquiryPrefill): void {
+  try {
+    sessionStorage.setItem(ENQUIRY_PREFILL_KEY, JSON.stringify(prefill));
+  } catch {
+    /* sessionStorage unavailable */
+  }
+}
+
+export function readEnquiryPrefill(): EnquiryPrefill | null {
+  try {
+    const raw = sessionStorage.getItem(ENQUIRY_PREFILL_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as EnquiryPrefill;
+    if (!parsed?.product || !parsed.configuration || !parsed.model) return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+export function clearEnquiryPrefill(): void {
+  try {
+    sessionStorage.removeItem(ENQUIRY_PREFILL_KEY);
+  } catch {
+    /* sessionStorage unavailable */
+  }
+}
+
+export function contactEnquiryHref(): string {
+  const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+  return `${base}/#contact`;
+}
+
 export function formatWhatsAppEnquiryMessage(fields: WhatsAppEnquiryFields): string {
   const lines = [
     'Hello Velmax Technologies,',
@@ -34,8 +77,16 @@ export function formatWhatsAppEnquiryMessage(fields: WhatsAppEnquiryFields): str
     'I would like to submit a product enquiry via your website.',
     '',
     `Product of interest: ${getEnquiryProductLabel(fields.product)}`,
-    `Name: ${fields.name}`,
   ];
+
+  if (fields.configuration?.trim()) {
+    lines.push(`Configuration: ${fields.configuration.trim()}`);
+  }
+  if (fields.model?.trim()) {
+    lines.push(`Model: ${fields.model.trim()}`);
+  }
+
+  lines.push(`Name: ${fields.name}`);
 
   if (fields.company?.trim()) {
     lines.push(`Company: ${fields.company.trim()}`);

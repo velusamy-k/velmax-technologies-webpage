@@ -139,6 +139,84 @@
   line-height: 1.5;
 }
 
+.servo-variant-catalog {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line-dark);
+}
+
+.servo-variant-catalog-heading {
+  margin-bottom: 16px;
+}
+
+.servo-catalog-section {
+  margin-bottom: 20px;
+}
+
+.servo-catalog-section-title {
+  margin: 0 0 10px;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+  color: var(--orange);
+  text-transform: uppercase;
+}
+
+.servo-product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.servo-product-btn {
+  width: 100%;
+  min-height: 52px;
+  padding: 10px 8px;
+  border: 1px solid rgba(230, 107, 48, 0.55);
+  border-radius: 2px;
+  background: rgba(230, 107, 48, 0.06);
+  color: #f3efe8;
+  font-size: 8px;
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: 0.06em;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s,
+    color 0.2s;
+  box-shadow:
+    0 0 0 1px rgba(230, 107, 48, 0.12),
+    0 0 14px rgba(230, 107, 48, 0.18);
+}
+
+.servo-product-btn:hover {
+  background: rgba(230, 107, 48, 0.14);
+  border-color: rgba(230, 107, 48, 0.85);
+  box-shadow:
+    0 0 0 1px rgba(230, 107, 48, 0.25),
+    0 0 22px rgba(230, 107, 48, 0.35);
+  color: #fff;
+}
+
+.servo-product-btn:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+}
+
+.servo-catalog-enquiry-hint {
+  margin: 8px 0 0;
+  font-size: 9px;
+  line-height: 1.55;
+  color: #a6a096;
+  letter-spacing: 0.04em;
+}
+
 .servo-flow-visual {
   display: flex;
   flex-direction: column;
@@ -212,6 +290,20 @@
   color: #a6a096;
 }
 
+.servo-flow-enquiry {
+  margin-top: 0;
+  padding: 48px clamp(20px, 5vw, 48px) 72px;
+  border-top: 1px solid rgba(246, 241, 232, 0.12);
+}
+
+.servo-flow-enquiry .contact-layout {
+  padding-top: 48px;
+}
+
+.servo-enquiry-section-top {
+  padding-top: 8px;
+}
+
 .servo-flow-footer {
   padding: 24px clamp(20px, 5vw, 48px) 40px;
   border-top: 1px solid rgba(246, 241, 232, 0.12);
@@ -247,6 +339,16 @@
 
   .servo-flow-visual {
     order: -1;
+  }
+
+  .servo-product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .servo-product-grid {
+    grid-template-columns: 1fr;
   }
 }
 
