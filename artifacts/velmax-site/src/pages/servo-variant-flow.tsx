@@ -56,7 +56,7 @@ export default function ServoVariantFlowPage() {
   return (
     <div className="servo-flow-page">
       <header className="servo-flow-header">
-        <BrandMark homeHref="/" />
+        <BrandMark homeHref="/" light />
         <a className="servo-flow-back" href="/#servo-stabilizers" data-testid="link-servo-flow-back">
           <ArrowLeft size={14} aria-hidden="true" />
           Back to Servo stabilizers

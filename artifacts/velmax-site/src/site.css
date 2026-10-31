@@ -21,10 +21,7 @@ main { overflow: clip; }
 .site-header { position: sticky; top: 0; z-index: 50; width: 100%; background: rgba(243, 240, 233, .94); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(47,44,38,.13); }
 .header-inner { height: 76px; max-width: 1440px; padding: 0 5.4vw; margin: auto; display: flex; align-items: center; justify-content: space-between; }
 .brand { display: inline-flex; align-items: center; gap: 10px; flex: 0 0 auto; color: var(--ink); }
-.brand-symbol { width: 27px; height: 28px; display: flex; align-items: center; gap: 3px; transform: skew(-18deg); }
-.brand-symbol i { width: 5px; height: 24px; background: var(--orange); display: block; }
-.brand-symbol i:nth-child(2) { height: 18px; opacity: .72; }
-.brand-symbol i:nth-child(3) { height: 12px; opacity: .45; }
+.brand-emblem { display: block; width: auto; height: 34px; object-fit: contain; flex: 0 0 auto; }
 .brand-wordmark { display: flex; flex-direction: column; line-height: 1; gap: 4px; }
 .brand-wordmark strong { letter-spacing: .14em; font-size: 15px; font-weight: 800; }
 .brand-wordmark small { font-size: 7px; letter-spacing: .36em; font-weight: 600; }
@@ -308,7 +305,7 @@ h1, h2, h3, p { text-wrap: pretty; }
 @media (max-width: 680px) {
   html { scroll-padding-top: 65px; }
   .header-inner { height: 64px; padding: 0 20px; }
-  .brand-symbol { transform: scale(.88) skew(-18deg); transform-origin: left center; }
+  .brand-emblem { height: 30px; }
   .brand-wordmark strong { font-size: 13px; }
   .header-cta { margin-left: auto; margin-right: 7px; height: 35px; padding: 0 11px; gap: 9px; font-size: 10px; }
   .mobile-toggle { display: block; }

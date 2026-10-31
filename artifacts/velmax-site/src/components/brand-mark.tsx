@@ -1,3 +1,5 @@
+import { velmaxLogoSrc } from '@/brand-assets';
+
 type BrandMarkProps = {
   light?: boolean;
   homeHref?: string;
@@ -11,11 +13,15 @@ export function BrandMark({ light = false, homeHref = '#top' }: BrandMarkProps) 
       aria-label="Velmax Technologies, home"
       data-testid="link-home"
     >
-      <span className="brand-symbol" aria-hidden="true">
-        <i />
-        <i />
-        <i />
-      </span>
+      <img
+        src={velmaxLogoSrc}
+        alt=""
+        className="brand-emblem"
+        aria-hidden="true"
+        width={36}
+        height={36}
+        decoding="async"
+      />
       <span className="brand-wordmark">
         <strong>VELMAX</strong>
         <small>TECHNOLOGIES</small>
