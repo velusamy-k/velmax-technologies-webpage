@@ -1,6 +1,3 @@
 {
-  "installCommand": "pnpm install",
-  "buildCommand": "PORT=5173 BASE_PATH=/ pnpm --filter @workspace/velmax-site run build",
-  "outputDirectory": "artifacts/velmax-site/dist/public",
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
