@@ -68,7 +68,6 @@ h1, h2, h3, p { text-wrap: pretty; }
 .scroll-cue { z-index: 4; position: absolute; bottom: 33px; left: 10.7vw; display: inline-flex; align-items: center; gap: 14px; font-size: 8px; letter-spacing: .18em; color: rgba(243,240,233,.64); }
 .scroll-cue svg { color: var(--orange); transition: transform .2s; }
 .scroll-cue:hover svg { transform: translateY(4px); }
-.hero-index { position: absolute; z-index: 3; bottom: 35px; right: 5.4vw; font-size: 9px; letter-spacing: .16em; color: rgba(243,240,233,.58); }
 .manifesto { position: relative; background: var(--orange); min-height: 525px; padding: 38px 10.5vw 30px; color: #fff4e7; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
 .manifesto::after { content: ""; position: absolute; right: -4%; top: -34%; width: 52vw; height: 52vw; border: 1px solid rgba(255,244,231,.23); border-radius: 50%; box-shadow: 0 0 0 42px rgba(255,244,231,.035), 0 0 0 84px rgba(255,244,231,.03), 0 0 0 126px rgba(255,244,231,.025); pointer-events: none; }
 .manifesto-label, .manifesto-bottom { z-index: 1; display: flex; justify-content: space-between; font-size: 8px; font-weight: 700; letter-spacing: .17em; }
@@ -117,18 +116,15 @@ h1, h2, h3, p { text-wrap: pretty; }
 .story-3 .story-image img { object-position: 50% 39%; }
 .story-image-shade { position: absolute; inset: 0; background: linear-gradient(0deg, rgba(23,23,21,.56), transparent 38%), linear-gradient(90deg, rgba(23,23,21,.12), transparent); }
 .story-2 .story-image-shade { background: linear-gradient(0deg, rgba(52,43,34,.43), transparent 45%); }
-.story-watermark { position: absolute; top: 18px; left: 5.5vw; font-family: var(--app-font-serif); font-size: clamp(140px, 20vw, 270px); line-height: 1; letter-spacing: -.09em; color: rgba(248,243,233,.08); }
 .story-copy { position: relative; padding: 108px clamp(45px, 8vw, 125px) 74px clamp(48px, 8vw, 120px); align-self: center; }
-.story-number { position: absolute; right: 4vw; top: 78px; font-size: 8px; letter-spacing: .17em; color: #a6a096; }
 .story-copy h2 { margin: 39px 0 20px; font-size: clamp(44px, 5.4vw, 72px); line-height: .95; letter-spacing: -.075em; font-weight: 500; }
 .story-2 .story-copy h2 em { color: var(--orange-deep); }
 .story-description { max-width: 420px; font-size: 13px; line-height: 1.8; color: #bab6ac; }
 .story-2 .story-description { color: #6c665c; }
 .story-benefits { margin: 32px 0 29px; border-top: 1px solid var(--line-dark); }
 .story-2 .story-benefits { border-color: var(--line); }
-.benefit-row { min-height: 51px; display: grid; grid-template-columns: 35px 1fr 15px; gap: 8px; align-items: center; border-bottom: 1px solid var(--line-dark); }
+.benefit-row { min-height: 51px; display: grid; grid-template-columns: 1fr 15px; gap: 8px; align-items: center; border-bottom: 1px solid var(--line-dark); }
 .story-2 .benefit-row { border-color: var(--line); }
-.benefit-row > span { font-size: 8px; letter-spacing: .12em; color: var(--orange); }
 .benefit-row p { font-size: 10px; color: #ddd9d1; margin: 0; }
 .story-2 .benefit-row p { color: #504c45; }
 .benefit-row svg { color: #a6a096; }
@@ -295,7 +291,6 @@ h1, h2, h3, p { text-wrap: pretty; }
   .product-intro { padding-left: 8vw; padding-right: 8vw; }
   .story-copy { padding: 82px 5vw 65px; }
   .story-visual { min-height: 620px; }
-  .story-number { top: 55px; }
   .approach { padding-left: 8vw; padding-right: 8vw; }
   .approach-main { gap: 7vw; }
   .contact { padding-left: 8vw; padding-right: 8vw; }
@@ -326,7 +321,6 @@ h1, h2, h3, p { text-wrap: pretty; }
   .hero-image-caption { bottom: 65px; left: 24px; right: 24px; }
   .hero-footnote { margin-top: 44px; font-size: 7px; }
   .scroll-cue { left: 24px; bottom: 29px; font-size: 7px; }
-  .hero-index { bottom: 29px; right: 23px; }
   .manifesto { padding: 28px 24px 24px; min-height: 500px; }
   .manifesto-label { font-size: 7px; }
   .manifesto-label span:last-child { text-align: right; }
@@ -350,9 +344,7 @@ h1, h2, h3, p { text-wrap: pretty; }
   .rail-item h3 { font-size: 17px; }
   .product-story { grid-template-columns: 1fr; min-height: 0; }
   .story-visual { min-height: 450px; height: 112vw; max-height: 570px; }
-  .story-watermark { left: 24px; font-size: 150px; }
   .story-copy { padding: 54px 24px 58px; }
-  .story-number { right: 25px; top: 50px; }
   .story-copy h2 { margin-top: 31px; font-size: 54px; }
   .story-description { font-size: 12px; }
   .story-benefits { margin: 25px 0 23px; }

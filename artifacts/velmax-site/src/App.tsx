@@ -118,15 +118,14 @@ export function HomePage() {
         </div>
         <div className="hero-art" aria-label="Generated concept imagery representing Velmax power equipment">
           <div className="hero-image-wrap"><img src="/images/concept-servo.jpg" alt="Concept image only: unbranded power equipment cabinet, not an actual Velmax product" fetchPriority="high" /></div>
-          <div className="hero-image-caption"><span>CONCEPT VISUAL</span><span>01 / 03</span></div>
+          <div className="hero-image-caption"><span>CONCEPT VISUAL</span></div>
           <div className="hero-stamp"><span>ENGINEERED</span><b>FOR</b><span>CONTINUITY</span><i /></div>
         </div>
         <a href="#manifesto" className="scroll-cue" aria-label="Scroll to continue"><span>SCROLL TO DISCOVER</span><ArrowDown size={15} /></a>
-        <div className="hero-index">01 — 04</div>
       </section>
 
       <section className="manifesto" id="manifesto">
-        <div className="manifesto-label reveal"><span>01 / A BETTER KIND OF POWER</span><span>BUILT FOR THE REAL WORLD</span></div>
+        <div className="manifesto-label reveal"><span>A BETTER KIND OF POWER</span><span>BUILT FOR THE REAL WORLD</span></div>
         <div className="manifesto-content">
           <p className="manifesto-title reveal">Power is not a product.<br /><em>It’s what makes everything else possible.</em></p>
           <div className="manifesto-note reveal"><span className="orange-rule" /><p>From voltage regulation to backup and continuity, the right equipment starts with understanding the work it has to do.</p></div>
@@ -135,13 +134,13 @@ export function HomePage() {
       </section>
 
       <section className="product-intro" id="products">
-        <div className="section-top reveal"><span className="eyebrow"><span className="eyebrow-line" /> THREE PRODUCT FAMILIES</span><span className="section-index">02 — 04</span></div>
+        <div className="section-top reveal"><span className="eyebrow"><span className="eyebrow-line" /> THREE PRODUCT FAMILIES</span></div>
         <div className="product-intro-heading reveal"><h2>One need.<br /><em>Many ways forward.</em></h2><p>Explore the equipment we manufacture. Product details and specifications are shared directly, based on your requirements.</p></div>
         <div className="product-rail">
           {siteConfig.products.map((product, index) => (
             <a className={`rail-item rail-${index + 1} reveal`} href={`#${product.id}`} key={product.id} data-testid={`link-product-card-${product.id}`}>
               <div className="rail-image"><img src={product.image} alt={product.imageAlt} loading="lazy" /><span className="rail-arrow"><ArrowUpRight size={18} /></span></div>
-              <div className="rail-meta"><span>{product.number} / {product.eyebrow}</span><span>EXPLORE <ArrowRight size={12} /></span></div>
+              <div className="rail-meta"><span>{product.eyebrow}</span><span>EXPLORE <ArrowRight size={12} /></span></div>
               <h3>{product.shortName}</h3>
             </a>
           ))}
@@ -153,17 +152,15 @@ export function HomePage() {
           <article className={`product-story story-${index + 1}`} id={product.id} key={product.id}>
             <div className="story-visual">
               <div className="story-image"><img src={product.image} alt={product.imageAlt} loading="lazy" /><div className="story-image-shade" /></div>
-              <span className="story-watermark">{product.number}</span>
             </div>
             <div className="story-copy">
               <div className="eyebrow"><span className="eyebrow-line" /> {product.eyebrow}</div>
-              <span className="story-number">{product.number} / 03</span>
               <h2>{product.name.split(' ').slice(0, -1).join(' ')}<br /><em>{product.name.split(' ').slice(-1)}</em></h2>
               <p className="story-description">{product.description}</p>
               {'modelGroups' in product && product.modelGroups ? (
                 <ServoModelGroups groups={product.modelGroups} />
               ) : product.benefits.length > 0 ? (
-                <div className="story-benefits">{product.benefits.map((benefit, benefitIndex) => <div className="benefit-row" key={benefit}><span>0{benefitIndex + 1}</span><p>{benefit}</p><ArrowUpRight size={14} /></div>)}</div>
+                <div className="story-benefits">{product.benefits.map((benefit) => <div className="benefit-row" key={benefit}><p>{benefit}</p><ArrowUpRight size={14} /></div>)}</div>
               ) : null}
                <a href="#contact" onClick={() => { setSelectedProduct(product.id as ProductOptionValue); closeMenu(); }} className="button button-outline" data-testid={`link-enquire-${product.id}`}>Enquire about {product.shortName} <ArrowUpRight size={15} /></a>
               <span className="spec-note">Technical specifications and model availability are confirmed on enquiry.</span>
@@ -173,7 +170,7 @@ export function HomePage() {
       </section>
 
       <section className="approach" id="approach">
-        <div className="approach-top reveal"><span className="eyebrow"><span className="eyebrow-line" /> THE VELMAX APPROACH</span><span className="section-index">03 — 04</span></div>
+        <div className="approach-top reveal"><span className="eyebrow"><span className="eyebrow-line" /> THE VELMAX APPROACH</span></div>
         <div className="approach-main">
           <h2 className="reveal">Start with<br /><em>the requirement.</em></h2>
           <div className="approach-detail reveal">

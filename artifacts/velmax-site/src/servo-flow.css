@@ -90,9 +90,7 @@
 }
 
 .servo-flow-manufacturing-item {
-  display: grid;
-  grid-template-columns: 35px 1fr;
-  gap: 8px;
+  display: block;
   align-items: start;
   min-height: 51px;
   padding: 14px 12px;
@@ -115,13 +113,6 @@
 
 .servo-flow-manufacturing-item.is-active {
   background: rgba(230, 107, 48, 0.08);
-}
-
-.servo-flow-manufacturing-item > span {
-  font-size: 8px;
-  letter-spacing: 0.12em;
-  color: var(--orange);
-  padding-top: 2px;
 }
 
 .servo-flow-manufacturing-item p {

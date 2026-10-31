@@ -42,7 +42,7 @@ export function BusinessEnquirySection({
       {showHomeContactHeader ? (
         <div className="contact-top">
           <span className="eyebrow">
-            <span className="eyebrow-line" /> 04 / START A CONVERSATION
+            <span className="eyebrow-line" /> START A CONVERSATION
           </span>
           <span className="section-index">LET&apos;S TALK POWER</span>
         </div>

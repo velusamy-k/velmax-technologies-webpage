@@ -78,7 +78,7 @@ export default function ServoVariantFlowPage() {
           <p className="servo-flow-list-heading">WHAT WE MANUFACTURE</p>
           <nav aria-label="Servo stabilizer configurations">
           <ul className="servo-flow-manufacturing-list">
-            {siteConfig.servoManufacturingList.map((item, index) => {
+            {siteConfig.servoManufacturingList.map((item) => {
               const isActive = item.id === variantId;
               return (
                 <li key={item.id}>
@@ -88,7 +88,6 @@ export default function ServoVariantFlowPage() {
                     aria-current={isActive ? 'true' : undefined}
                     data-testid={`link-servo-flow-option-${item.id}`}
                   >
-                    <span>{String(index + 1).padStart(2, '0')}</span>
                     <div>
                       <p>{item.label}</p>
                       {item.detail ? <small>{item.detail}</small> : null}

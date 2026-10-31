@@ -68,7 +68,6 @@ export function getAllServoVariants(): ResolvedServoVariant[] {
 
 type BaseProduct = {
   id: string;
-  number: string;
   name: string;
   shortName: string;
   eyebrow: string;
@@ -104,7 +103,6 @@ export const siteConfig = {
   products: [
     {
       id: 'servo-stabilizers',
-      number: '01',
       name: 'Servo stabilizers',
       shortName: 'Servo stabilizers',
       eyebrow: 'Voltage conditioning',
@@ -150,7 +148,6 @@ export const siteConfig = {
     },
     {
       id: 'inverter-batteries',
-      number: '02',
       name: 'Inverter batteries',
       shortName: 'Inverter batteries',
       eyebrow: 'Stored power',
@@ -162,7 +159,6 @@ export const siteConfig = {
     },
     {
       id: 'online-ups',
-      number: '03',
       name: 'Online UPS systems',
       shortName: 'Online UPS',
       eyebrow: 'Power continuity',
