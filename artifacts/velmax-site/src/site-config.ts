@@ -187,7 +187,7 @@ export const siteConfig = {
       id: 'oil-3ph',
       label: 'Oil Cooled — 3 phase input & 3 phase output',
     },
-  ] satisfies ServoManufacturingListItem[],
+  ] as ServoManufacturingListItem[],
   // Empty until customer applications have been verified by the company.
   industries: [] as { name: string; description: string }[],
   // Empty until certificates, testimonials or measurable claims are verified.

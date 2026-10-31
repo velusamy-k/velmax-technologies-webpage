@@ -100,6 +100,7 @@ export default function ServoVariantFlowPage() {
           </nav>
           <ServoVariantCatalog
             variantId={variantId as ServoVariantId}
+            configuration={variant.label}
             onSelectModel={handleSelectModel}
           />
         </div>
